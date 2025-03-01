@@ -16,9 +16,11 @@ services:
       timeout: 10s
   application:
     container_name: app
+    ports:
+      - "8080:8080"
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     depends_on:
       postgres:
         condition: service_healthy

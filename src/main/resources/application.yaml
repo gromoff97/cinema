@@ -6,6 +6,6 @@ ktor:
     deployment:
         port: 8080
 postgres:
-  url: "jdbc:postgresql://localhost/cinema_db"
+  url: "jdbc:postgresql://postgres/cinema_db"
   user: gromov
   password: gromov_password
