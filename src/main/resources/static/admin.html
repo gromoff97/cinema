@@ -1,3 +1,342 @@
-<html>
-    <div>Hello</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Админка</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* Стили для контейнера с формами */
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Три колонки */
+            gap: 20px; /* Расстояние между формами */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Стили для форм */
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стили для вывода ошибок */
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Админка</h1>
+
+<!-- Контейнер для форм -->
+<div class="forms-grid">
+    <!-- Форма для добавления записи в таблицу Customers -->
+    <div class="form-container">
+        <h2>Добавить клиента</h2>
+        <form id="customerForm">
+            <label for="fullName">Полное имя:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="balance">Баланс:</label>
+            <input type="number" id="balance" name="balance" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="customerError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Bookings -->
+    <div class="form-container">
+        <h2>Добавить бронирование</h2>
+        <form id="bookingForm">
+            <label for="bookingTime">Время бронирования:</label>
+            <input type="datetime-local" id="bookingTime" name="bookingTime" required>
+
+            <label for="sessionSeatId">ID места в сеансе:</label>
+            <input type="text" id="sessionSeatId" name="sessionSeatId" required>
+
+            <label for="customerId">ID клиента:</label>
+            <input type="text" id="customerId" name="customerId" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="bookingError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Films -->
+    <div class="form-container">
+        <h2>Добавить фильм</h2>
+        <form id="filmForm">
+            <label for="filmName">Название фильма:</label>
+            <input type="text" id="filmName" name="name" required>
+
+            <label for="genreId">ID жанра:</label>
+            <input type="text" id="genreId" name="genreId" required>
+
+            <label for="duration">Длительность (в минутах):</label>
+            <input type="number" id="duration" name="duration" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="filmError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Genres -->
+    <div class="form-container">
+        <h2>Добавить жанр</h2>
+        <form id="genreForm">
+            <label for="genreName">Название жанра:</label>
+            <input type="text" id="genreName" name="name" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="genreError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Halls -->
+    <div class="form-container">
+        <h2>Добавить зал</h2>
+        <form id="hallForm">
+            <label for="alternativeName">Альтернативное название:</label>
+            <input type="text" id="alternativeName" name="alternativeName" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="hallError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Seats -->
+    <div class="form-container">
+        <h2>Добавить место</h2>
+        <form id="seatForm">
+            <label for="hallId">ID зала:</label>
+            <input type="text" id="hallId" name="hallId" required>
+
+            <label for="rowNumber">Номер ряда:</label>
+            <input type="number" id="rowNumber" name="rowNumber" required>
+
+            <label for="seatNumber">Номер места:</label>
+            <input type="number" id="seatNumber" name="seatNumber" required>
+
+            <label for="seatTypeId">ID типа места:</label>
+            <input type="text" id="seatTypeId" name="seatTypeId" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="seatError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу SeatTypes -->
+    <div class="form-container">
+        <h2>Добавить тип места</h2>
+        <form id="seatTypeForm">
+            <label for="seatTypeName">Название типа места:</label>
+            <input type="text" id="seatTypeName" name="name" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="seatTypeError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу Sessions -->
+    <div class="form-container">
+        <h2>Добавить сеанс</h2>
+        <form id="sessionForm">
+            <label for="hallIdSession">ID зала:</label>
+            <input type="text" id="hallIdSession" name="hallId" required>
+
+            <label for="filmIdSession">ID фильма:</label>
+            <input type="text" id="filmIdSession" name="filmId" required>
+
+            <label for="startTime">Время начала:</label>
+            <input type="datetime-local" id="startTime" name="startTime" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="sessionError" class="error-message"></div>
+    </div>
+
+    <!-- Форма для добавления записи в таблицу SessionSeats -->
+    <div class="form-container">
+        <h2>Добавить место в сеансе</h2>
+        <form id="sessionSeatForm">
+            <label for="sessionId">ID сеанса:</label>
+            <input type="text" id="sessionId" name="sessionId" required>
+
+            <label for="seatId">ID места:</label>
+            <input type="text" id="seatId" name="seatId" required>
+
+            <label for="price">Цена:</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <button type="submit">Добавить</button>
+        </form>
+        <div id="sessionSeatError" class="error-message"></div>
+    </div>
+</div>
+
+<script>
+    // Функция для отправки данных на сервер
+    async function sendFormData(url, formData, errorElementId) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Ошибка при добавлении записи");
+            }
+
+            // Очищаем форму и выводим сообщение об успехе
+            document.getElementById(errorElementId).textContent = "Запись успешно добавлена!";
+            document.getElementById(errorElementId).style.color = "green";
+        } catch (error) {
+            // Выводим ошибку на экран
+            document.getElementById(errorElementId).textContent = error.message;
+            document.getElementById(errorElementId).style.color = "red";
+        }
+    }
+
+    // Обработчики для форм
+    document.getElementById("customerForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            fullName: document.getElementById("fullName").value,
+            balance: parseFloat(document.getElementById("balance").value)
+        };
+        await sendFormData("/customers", formData, "customerError");
+    });
+
+    document.getElementById("bookingForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            bookingTime: document.getElementById("bookingTime").value,
+            sessionSeatId: document.getElementById("sessionSeatId").value,
+            customerId: document.getElementById("customerId").value
+        };
+        await sendFormData("/bookings", formData, "bookingError");
+    });
+
+    document.getElementById("filmForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById("filmName").value,
+            genreId: document.getElementById("genreId").value,
+            duration: parseInt(document.getElementById("duration").value)
+        };
+        await sendFormData("/films", formData, "filmError");
+    });
+
+    document.getElementById("genreForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById("genreName").value
+        };
+        await sendFormData("/genres", formData, "genreError");
+    });
+
+    document.getElementById("hallForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            alternativeName: document.getElementById("alternativeName").value
+        };
+        await sendFormData("/halls", formData, "hallError");
+    });
+
+    document.getElementById("seatForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            hallId: document.getElementById("hallId").value,
+            rowNumber: parseInt(document.getElementById("rowNumber").value),
+            seatNumber: parseInt(document.getElementById("seatNumber").value),
+            seatTypeId: document.getElementById("seatTypeId").value
+        };
+        await sendFormData("/seats", formData, "seatError");
+    });
+
+    document.getElementById("seatTypeForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById("seatTypeName").value
+        };
+        await sendFormData("/seat-types", formData, "seatTypeError");
+    });
+
+    document.getElementById("sessionForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            hallId: document.getElementById("hallIdSession").value,
+            filmId: document.getElementById("filmIdSession").value,
+            startTime: document.getElementById("startTime").value
+        };
+        await sendFormData("/sessions", formData, "sessionError");
+    });
+
+    document.getElementById("sessionSeatForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = {
+            sessionId: document.getElementById("sessionId").value,
+            seatId: document.getElementById("seatId").value,
+            price: parseFloat(document.getElementById("price").value)
+        };
+        await sendFormData("/session-seats", formData, "sessionSeatError");
+    });
+</script>
+</body>
 </html>

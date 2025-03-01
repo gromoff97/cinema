@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Навигация</title>
+    <title>Главная страница</title>
     <style>
-        /* Стили для контейнера кнопок */
-        .button-container {
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
             display: flex;
-            gap: 20px; /* Расстояние между кнопками */
-            margin: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Контейнер для кнопок */
+        .button-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         /* Стили для кнопок */
         .nav-button {
-            text-decoration: none; /* Убираем подчеркивание */
-            padding: 15px 30px; /* Внутренние отступы */
-            font-size: 16px; /* Размер текста */
-            color: white; /* Цвет текста */
-            background-color: #007BFF; /* Цвет фона */
-            border: none; /* Убираем границу */
-            border-radius: 5px; /* Закругляем углы */
-            cursor: pointer; /* Курсор в виде руки */
-            transition: background-color 0.3s ease; /* Плавное изменение цвета */
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        /* Стили при наведении на кнопку */
         .nav-button:hover {
-            background-color: #0056b3; /* Темнее цвет фона */
+            background-color: #0056b3;
         }
 
-        /* Стили для активной кнопки (если нужно) */
-        .nav-button:active {
-            background-color: #004080; /* Еще темнее цвет фона */
+        /* Стили для заголовка */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+<h1>Добро пожаловать!</h1>
 <div class="button-container">
     <a href="show.html" class="nav-button">Показать состояние всей таблицы</a>
     <a href="admin.html" class="nav-button">Админка</a>
