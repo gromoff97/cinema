@@ -10,7 +10,6 @@ fun Application.connectDatabase() {
     Database.connect(getNewConnection = { connectToPostgres(embedded = false) })
 }
 
-
 private fun Application.connectToPostgres(embedded: Boolean): Connection {
     Class.forName("org.postgresql.Driver")
     if (embedded) {
@@ -20,12 +19,6 @@ private fun Application.connectToPostgres(embedded: Boolean): Connection {
         val url = environment.config.property("postgres.url").getString()
         val user = environment.config.property("postgres.user").getString()
         val password = environment.config.property("postgres.password").getString()
-
-        log.info("Connecting to PostgreSQL with the following parameters:")
-        log.info("URL: $url")
-        log.info("User: $user")
-        log.info("Password: $password")
-
         return DriverManager.getConnection(url, user, password)
     }
 }
