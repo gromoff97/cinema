@@ -1,0 +1,79 @@
+<html lang="ru">
+<head>
+    <title>Customers List</title>
+    <script type="application/javascript">
+        function displayCustomers() {
+            clearCustomersTable();
+            fetchCustomers().then(displayCustomersData);
+        }
+
+        function fetchCustomers() {
+            return sendGET("/customers");
+        }
+
+        function sendGET(url) {
+            return fetch(url, {
+                headers: {'Accept': 'application/json'}
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                return [];
+            });
+        }
+
+        function customersTable() {
+            return document.getElementById("customersTableBody");
+        }
+
+        function clearCustomersTable() {
+            customersTable().innerHTML = "";
+        }
+
+        function displayCustomersData(customers) {
+            const customersTableBody = customersTable();
+            customers.forEach(customer => {
+                const newRow = customerRow(customer);
+                customersTableBody.appendChild(newRow);
+            });
+        }
+
+        function customerRow(customer) {
+            return tr([
+                td(customer.fullName),
+                td(customer.balance),
+            ]);
+        }
+
+        function tr(children) {
+            const node = document.createElement("tr");
+            children.forEach(child => node.appendChild(child));
+            return node;
+        }
+
+        function td(content) {
+            const node = document.createElement("td");
+            if (content instanceof Element) {
+                node.appendChild(content);
+            } else {
+                node.appendChild(document.createTextNode(content));
+            }
+            return node;
+        }
+    </script>
+</head>
+<body onload="displayCustomers()">
+<h1>Customers List</h1>
+<hr>
+<table>
+    <thead>
+    <tr>
+        <th>Full Name</th>
+        <th>Balance</th>
+    </tr>
+    </thead>
+    <tbody id="customersTableBody">
+    </tbody>
+</table>
+</body>
+</html>
