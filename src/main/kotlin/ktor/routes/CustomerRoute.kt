@@ -1,6 +1,6 @@
-package indi.gromov.routes
+package indi.gromov.ktor.routes
 
-import indi.gromov.db.customer.CustomerRepository
+import indi.gromov.db.CustomerRepository
 import indi.gromov.models.Customer
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond

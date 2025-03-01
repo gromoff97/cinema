@@ -1,79 +1,43 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Customers List</title>
-    <script type="application/javascript">
-        function displayCustomers() {
-            clearCustomersTable();
-            fetchCustomers().then(displayCustomersData);
+    <title>Навигация</title>
+    <style>
+        /* Стили для контейнера кнопок */
+        .button-container {
+            display: flex;
+            gap: 20px; /* Расстояние между кнопками */
+            margin: 20px;
         }
 
-        function fetchCustomers() {
-            return sendGET("/customers");
+        /* Стили для кнопок */
+        .nav-button {
+            text-decoration: none; /* Убираем подчеркивание */
+            padding: 15px 30px; /* Внутренние отступы */
+            font-size: 16px; /* Размер текста */
+            color: white; /* Цвет текста */
+            background-color: #007BFF; /* Цвет фона */
+            border: none; /* Убираем границу */
+            border-radius: 5px; /* Закругляем углы */
+            cursor: pointer; /* Курсор в виде руки */
+            transition: background-color 0.3s ease; /* Плавное изменение цвета */
         }
 
-        function sendGET(url) {
-            return fetch(url, {
-                headers: {'Accept': 'application/json'}
-            }).then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                return [];
-            });
+        /* Стили при наведении на кнопку */
+        .nav-button:hover {
+            background-color: #0056b3; /* Темнее цвет фона */
         }
 
-        function customersTable() {
-            return document.getElementById("customersTableBody");
+        /* Стили для активной кнопки (если нужно) */
+        .nav-button:active {
+            background-color: #004080; /* Еще темнее цвет фона */
         }
-
-        function clearCustomersTable() {
-            customersTable().innerHTML = "";
-        }
-
-        function displayCustomersData(customers) {
-            const customersTableBody = customersTable();
-            customers.forEach(customer => {
-                const newRow = customerRow(customer);
-                customersTableBody.appendChild(newRow);
-            });
-        }
-
-        function customerRow(customer) {
-            return tr([
-                td(customer.fullName),
-                td(customer.balance),
-            ]);
-        }
-
-        function tr(children) {
-            const node = document.createElement("tr");
-            children.forEach(child => node.appendChild(child));
-            return node;
-        }
-
-        function td(content) {
-            const node = document.createElement("td");
-            if (content instanceof Element) {
-                node.appendChild(content);
-            } else {
-                node.appendChild(document.createTextNode(content));
-            }
-            return node;
-        }
-    </script>
+    </style>
 </head>
-<body onload="displayCustomers()">
-<h1>Customers List</h1>
-<hr>
-<table>
-    <thead>
-    <tr>
-        <th>Full Name</th>
-        <th>Balance</th>
-    </tr>
-    </thead>
-    <tbody id="customersTableBody">
-    </tbody>
-</table>
+<body>
+<div class="button-container">
+    <a href="show.html" class="nav-button">Показать состояние всей таблицы</a>
+    <a href="admin.html" class="nav-button">Админка</a>
+</div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 package indi.gromov.models
 
-import indi.gromov.utils.serializers.BigDecimalJson
+import io.ks3.java.math.BigDecimalAsString
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Customer(
     val fullName: String,
-    val balance: BigDecimalJson
+    val balance: BigDecimalAsString
 )

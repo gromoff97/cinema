@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Database Tables</title>
+    <script type="application/javascript">
+        // Функция для загрузки данных из API
+        async function fetchData(url) {
+            const response = await fetch(url, {
+                headers: {'Accept': 'application/json'}
+            });
+            if (response.ok) {
+                return response.json();
+            }
+            return [];
+        }
+
+        // Функция для очистки таблицы
+        function clearTable(tableBodyId) {
+            document.getElementById(tableBodyId).innerHTML = "";
+        }
+
+        // Функция для создания строки таблицы
+        function createRow(data, columns) {
+            const row = document.createElement("tr");
+            columns.forEach(column => {
+                const cell = document.createElement("td");
+                cell.textContent = data[column];
+                row.appendChild(cell);
+            });
+            return row;
+        }
+
+        // Функция для отображения данных в таблице
+        function displayData(tableBodyId, data, columns) {
+            const tableBody = document.getElementById(tableBodyId);
+            data.forEach(item => {
+                const row = createRow(item, columns);
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Функция для загрузки и отображения данных
+        async function loadData(url, tableBodyId, columns) {
+            clearTable(tableBodyId);
+            const data = await fetchData(url);
+            displayData(tableBodyId, data, columns);
+        }
+
+        // Загрузка данных при загрузке страницы
+        window.onload = function() {
+            loadData("/customers", "customersTableBody", ["fullName", "balance"]);
+            loadData("/bookings", "bookingsTableBody", ["bookingId", "bookingTime", "sessionSeatId", "customerId"]);
+            loadData("/films", "filmsTableBody", ["filmId", "name", "genreId", "duration"]);
+            loadData("/genres", "genresTableBody", ["genreId", "name"]);
+            loadData("/halls", "hallsTableBody", ["hallId", "alternativeName"]);
+            loadData("/seats", "seatsTableBody", ["seatId", "hallId", "rowNumber", "seatNumber", "seatTypeId"]);
+            loadData("/seat-types", "seatTypesTableBody", ["seatTypeId", "name"]);
+            loadData("/sessions", "sessionsTableBody", ["sessionId", "hallId", "filmId", "startTime"]);
+            loadData("/session-seats", "sessionSeatsTableBody", ["seatSessionId", "sessionId", "seatId", "price"]);
+        };
+    </script>
+</head>
+<body>
+<h1>Database Tables</h1>
+<hr>
+
+<h2>Customers</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Full Name</th>
+        <th>Balance</th>
+    </tr>
+    </thead>
+    <tbody id="customersTableBody"></tbody>
+</table>
+
+<h2>Bookings</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Booking ID</th>
+        <th>Booking Time</th>
+        <th>Session Seat ID</th>
+        <th>Customer ID</th>
+    </tr>
+    </thead>
+    <tbody id="bookingsTableBody"></tbody>
+</table>
+
+<h2>Films</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Film ID</th>
+        <th>Name</th>
+        <th>Genre ID</th>
+        <th>Duration</th>
+    </tr>
+    </thead>
+    <tbody id="filmsTableBody"></tbody>
+</table>
+
+<h2>Genres</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Genre ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody id="genresTableBody"></tbody>
+</table>
+
+<h2>Halls</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Hall ID</th>
+        <th>Alternative Name</th>
+    </tr>
+    </thead>
+    <tbody id="hallsTableBody"></tbody>
+</table>
+
+<h2>Seats</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Seat ID</th>
+        <th>Hall ID</th>
+        <th>Row Number</th>
+        <th>Seat Number</th>
+        <th>Seat Type ID</th>
+    </tr>
+    </thead>
+    <tbody id="seatsTableBody"></tbody>
+</table>
+
+<h2>Seat Types</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Seat Type ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody id="seatTypesTableBody"></tbody>
+</table>
+
+<h2>Sessions</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Session ID</th>
+        <th>Hall ID</th>
+        <th>Film ID</th>
+        <th>Start Time</th>
+    </tr>
+    </thead>
+    <tbody id="sessionsTableBody"></tbody>
+</table>
+
+<h2>Session Seats</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Seat Session ID</th>
+        <th>Session ID</th>
+        <th>Seat ID</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody id="sessionSeatsTableBody"></tbody>
+</table>
+</body>
+</html>

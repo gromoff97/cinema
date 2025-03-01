@@ -33,6 +33,8 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.exposed.dao)
+    implementation(libs.exposed.kotlin.datetime)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.kotlin.test.junit)
+
+    implementation("io.ks3:ks3-jdk:1.0.0")
 }

@@ -19,7 +19,7 @@ Here's a list of features included in this project:
 | [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
 | [Postgres](https://start.ktor.io/p/postgres)                           | Adds Postgres database to your application                                         |
 | [Exposed](https://start.ktor.io/p/exposed)                             | Adds Exposed database to your application                                          |
-| [Status Pages](https://start.ktor.io/p/status-pages)                   | Provides exception handling for routes                                             |
+| [Status Pages](https://start.ktor.io/p/status-pages)                   | Provides exception handling for ktor.routes                                             |
 | [Static Content](https://start.ktor.io/p/static-content)               | Serves static files from defined locations                                         |
 
 ## Building & Running
