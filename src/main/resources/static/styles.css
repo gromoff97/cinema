@@ -1,0 +1,202 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+h2 {
+    color: #555;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.forms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-container select {
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.modal-message {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-line;
+    margin-bottom: 20px;
+}
+
+.modal-message.error {
+    color: #d32f2f;
+    font-weight: bold;
+    background-color: #ffebee;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d32f2f;
+}
+
+#modalOkButton {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#modalOkButton:hover {
+    background-color: #0056b3;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.custom-dropdown .selected-option {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-dropdown .selected-option::after {
+    content: '▼';
+    font-size: 12px;
+    color: #555;
+}
+
+.custom-dropdown .options-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    z-index: 1000;
+    display: none;
+}
+
+.custom-dropdown .options-container .option {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-dropdown .options-container .option:hover {
+    background-color: #f1f1f1;
+}
+
+.custom-dropdown .options-container .option:last-child {
+    border-bottom: none;
+}
+
+.hidden-select {
+    display: none;
+}

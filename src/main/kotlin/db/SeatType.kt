@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.SeatTypeCreateRequest
 import indi.gromov.models.SeatType
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -26,17 +28,9 @@ class SeatTypeRepository {
         SeatTypeDao.all().map { it.toModel() }
     }
 
-    suspend fun insertSeatType(seatType: SeatType) = suspendTransaction {
+    suspend fun insertSeatType(seatType: SeatTypeCreateRequest) = suspendTransaction {
         SeatTypeDao.new {
             name = seatType.name
         }
     }
-}
-
-// Метод daoToModel
-fun SeatTypeDao.toModel(): SeatType {
-    return SeatType(
-        seatTypeId = id.value,
-        name = name
-    )
 }

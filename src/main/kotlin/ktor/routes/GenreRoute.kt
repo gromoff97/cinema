@@ -1,7 +1,8 @@
 package indi.gromov.ktor.routes
 
 import indi.gromov.db.GenreRepository
-import indi.gromov.models.Genre
+import indi.gromov.ktor.requests.GenreCreateRequest
+import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -24,12 +25,12 @@ fun Route.genreRoutes(genreRepository: GenreRepository) {
 
         post {
             runCatching {
-                val genre = call.receive<Genre>()
+                val genre = call.receive<GenreCreateRequest>()
                 genreRepository.insertGenre(genre)
             }.onSuccess {
-                call.respond(mapOf("status" to "success", "message" to "Genre created"))
+                call.respond(it.toModel())
             }.onFailure {
-                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+                call.respond(InternalServerError, mapOf("details" to it.message))
             }
         }
     }

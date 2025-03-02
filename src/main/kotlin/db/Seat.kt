@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.SeatCreateRequest
 import indi.gromov.models.Seat
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -36,7 +38,7 @@ class SeatRepository {
         SeatDao.all().map { it.toModel() }
     }
 
-    suspend fun insertSeat(seat: Seat) = suspendTransaction {
+    suspend fun insertSeat(seat: SeatCreateRequest) = suspendTransaction {
         SeatDao.new {
             hallId = seat.hallId
             rowNumber = seat.rowNumber
@@ -44,15 +46,4 @@ class SeatRepository {
             seatTypeId = seat.seatTypeId
         }
     }
-}
-
-// Метод daoToModel
-fun SeatDao.toModel(): Seat {
-    return Seat(
-        seatId = id.value,
-        hallId = hallId,
-        rowNumber = rowNumber,
-        seatNumber = seatNumber,
-        seatTypeId = seatTypeId
-    )
 }

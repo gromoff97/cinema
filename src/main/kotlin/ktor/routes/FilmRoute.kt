@@ -1,7 +1,8 @@
 package indi.gromov.ktor.routes
 
 import indi.gromov.db.FilmRepository
-import indi.gromov.models.Film
+import indi.gromov.ktor.requests.FilmCreateRequest
+import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -24,12 +25,12 @@ fun Route.filmRoutes(filmRepository: FilmRepository) {
 
         post {
             runCatching {
-                val film = call.receive<Film>()
+                val film = call.receive<FilmCreateRequest>()
                 filmRepository.insertFilm(film)
             }.onSuccess {
-                call.respond(mapOf("status" to "success", "message" to "Film created"))
+                call.respond(it.toModel())
             }.onFailure {
-                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+                call.respond(InternalServerError, mapOf("details" to it.message))
             }
         }
     }

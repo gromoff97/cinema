@@ -1,12 +1,10 @@
-package indi.gromov.models
+package indi.gromov.ktor.requests
 
 import io.ks3.java.math.BigDecimalAsString
-import io.ks3.java.typealiases.UuidAsString
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Customer(
-    val customerId: UuidAsString,
+data class CustomerCreateRequest(
     val fullName: String,
     val balance: BigDecimalAsString
 )

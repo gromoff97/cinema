@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.BookingCreateRequest
 import indi.gromov.models.Booking
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -25,23 +27,14 @@ class BookingDao(id: EntityID<UUID>): UUIDEntity(id) {
 
 class BookingRepository {
     suspend fun allBookings(): List<Booking> = suspendTransaction {
-        BookingDao.all().map(::bookingDaoToModel)
+        BookingDao.all().map { it.toModel() }
     }
 
-    suspend fun insertBooking(booking: Booking) = suspendTransaction {
+    suspend fun insertBooking(booking: BookingCreateRequest) = suspendTransaction {
         BookingDao.new {
             bookingTime = booking.bookingTime
             sessionSeatId = booking.sessionSeatId
             customerId = booking.customerId
         }
     }
-}
-
-fun bookingDaoToModel(dao: BookingDao): Booking {
-    return Booking(
-        bookingId = dao.id.value,
-        bookingTime = dao.bookingTime,
-        sessionSeatId = dao.sessionSeatId,
-        customerId = dao.customerId
-    )
 }

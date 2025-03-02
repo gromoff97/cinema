@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.FilmCreateRequest
 import indi.gromov.models.Film
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -32,25 +34,16 @@ class FilmDao(id: EntityID<UUID>): UUIDEntity(id) {
 
 class FilmRepository {
     suspend fun allFilms(): List<Film> = suspendTransaction {
-        FilmDao.all().map(::filmDaoToModel)
+        FilmDao.all().map { it.toModel() }
     }
 
-    suspend fun insertFilm(film: Film) = suspendTransaction {
+    suspend fun insertFilm(film: FilmCreateRequest) = suspendTransaction {
         FilmDao.new {
             name = film.name
             genreId = film.genreId
             duration = film.duration
         }
     }
-}
-
-fun filmDaoToModel(dao: FilmDao): Film {
-    return Film(
-        filmId = dao.id.value,
-        name = dao.name,
-        genreId = dao.genreId,
-        duration = dao.duration
-    )
 }
 
 class DurationColumnType : ColumnType<Duration>() {
@@ -64,8 +57,17 @@ class DurationColumnType : ColumnType<Duration>() {
                 }
                 hours.hours + minutes.minutes + seconds.seconds
             }
+            is Duration -> value
             else -> throw IllegalArgumentException("Unsupported value type: ${value::class}")
         }
+    }
+
+    override fun notNullValueToDB(value: Duration): Any {
+        return PGInterval(0, 0, 0,
+            value.inWholeHours.toInt(),
+            value.inWholeMinutes.mod(60),
+            value.inWholeSeconds.mod(60).toDouble()
+        )
     }
 }
 

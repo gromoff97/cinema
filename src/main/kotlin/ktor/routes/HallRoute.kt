@@ -1,7 +1,9 @@
 package indi.gromov.ktor.routes
 
 import indi.gromov.db.HallRepository
+import indi.gromov.ktor.requests.HallCreateRequest
 import indi.gromov.models.Hall
+import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
 import io.ktor.server.routing.Route
@@ -24,12 +26,12 @@ fun Route.hallRoutes(hallRepository: HallRepository) {
 
         post {
             runCatching {
-                val hall = call.receive<Hall>()
+                val hall = call.receive<HallCreateRequest>()
                 hallRepository.insertHall(hall)
             }.onSuccess {
-                call.respond(mapOf("status" to "success", "message" to "Hall created"))
+                call.respond(it.toModel())
             }.onFailure {
-                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+                call.respond(InternalServerError, mapOf("details" to it.message))
             }
         }
     }

@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.CustomerCreateRequest
 import indi.gromov.models.Customer
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -22,18 +24,13 @@ class CustomerDao(id: EntityID<UUID>): UUIDEntity(id) {
 
 class CustomerRepository {
     suspend fun allCustomers(): List<Customer> = suspendTransaction {
-        CustomerDao.all().map(::customerDaoToModel)
+        CustomerDao.all().map { it.toModel() }
     }
 
-    suspend fun insertCustomer(customer: Customer) = suspendTransaction {
+    suspend fun insertCustomer(customer: CustomerCreateRequest) = suspendTransaction {
         CustomerDao.new {
             fullName = customer.fullName
             balance = customer.balance
         }
     }
 }
-
-private fun customerDaoToModel(dao: CustomerDao) = Customer(
-    dao.fullName,
-    dao.balance
-)

@@ -1,7 +1,9 @@
 package indi.gromov.ktor.routes
 
 import indi.gromov.db.SessionSeatRepository
+import indi.gromov.ktor.requests.SessionSeatCreateRequest
 import indi.gromov.models.SessionSeat
+import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
 import io.ktor.server.routing.Route
@@ -24,12 +26,12 @@ fun Route.sessionSeatRoutes(sessionSeatRepository: SessionSeatRepository) {
 
         post {
             runCatching {
-                val sessionSeat = call.receive<SessionSeat>()
+                val sessionSeat = call.receive<SessionSeatCreateRequest>()
                 sessionSeatRepository.insertSessionSeat(sessionSeat)
             }.onSuccess {
-                call.respond(mapOf("status" to "success", "message" to "SessionSeat created"))
+                call.respond(it.toModel())
             }.onFailure {
-                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+                call.respond(InternalServerError, mapOf("details" to it.message))
             }
         }
     }

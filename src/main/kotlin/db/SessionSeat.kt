@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.SessionSeatCreateRequest
 import indi.gromov.models.SessionSeat
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -24,23 +26,14 @@ class SessionSeatDao(id: EntityID<UUID>): UUIDEntity(id) {
 
 class SessionSeatRepository {
     suspend fun allSessionSeats(): List<SessionSeat> = suspendTransaction {
-        SessionSeatDao.all().map(::sessionSeatDaoToModel)
+        SessionSeatDao.all().map { it.toModel() }
     }
 
-    suspend fun insertSessionSeat(sessionSeat: SessionSeat) = suspendTransaction {
+    suspend fun insertSessionSeat(sessionSeat: SessionSeatCreateRequest) = suspendTransaction {
         SessionSeatDao.new {
             sessionId = sessionSeat.sessionId
             seatId = sessionSeat.seatId
             price = sessionSeat.price
         }
     }
-}
-
-fun sessionSeatDaoToModel(dao: SessionSeatDao): SessionSeat {
-    return SessionSeat(
-        seatSessionId = dao.id.value,
-        sessionId = dao.sessionId,
-        seatId = dao.seatId,
-        price = dao.price
-    )
 }

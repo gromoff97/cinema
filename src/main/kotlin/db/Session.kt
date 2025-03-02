@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.SessionCreateRequest
 import indi.gromov.models.Session
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toKotlinInstant
@@ -33,21 +35,11 @@ class SessionRepository {
         SessionDao.all().map { it.toModel() }
     }
 
-    suspend fun insertSession(session: Session) = suspendTransaction {
+    suspend fun insertSession(session: SessionCreateRequest) = suspendTransaction {
         SessionDao.new {
             hallId = session.hallId
             filmId = session.filmId
             startTime = session.startTime
         }
     }
-}
-
-// Метод daoToModel
-fun SessionDao.toModel(): Session {
-    return Session(
-        sessionId = id.value,
-        hallId = hallId,
-        filmId = filmId,
-        startTime = startTime
-    )
 }

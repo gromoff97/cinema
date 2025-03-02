@@ -1,6 +1,8 @@
 package indi.gromov.db
 
+import indi.gromov.ktor.requests.GenreCreateRequest
 import indi.gromov.models.Genre
+import indi.gromov.utils.transaction.extensions.toModel
 import indi.gromov.utils.transaction.suspendTransaction
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -20,19 +22,12 @@ class GenreDao(id: EntityID<UUID>): UUIDEntity(id) {
 
 class GenreRepository {
     suspend fun allGenres(): List<Genre> = suspendTransaction {
-        GenreDao.all().map(::genreDaoToModel)
+        GenreDao.all().map { it.toModel() }
     }
 
-    suspend fun insertGenre(genre: Genre) = suspendTransaction {
+    suspend fun insertGenre(genre: GenreCreateRequest) = suspendTransaction {
         GenreDao.new {
             name = genre.name
         }
     }
-}
-
-fun genreDaoToModel(dao: GenreDao): Genre {
-    return Genre(
-        genreId = dao.id.value,
-        name = dao.name
-    )
 }
