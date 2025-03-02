@@ -1,4 +1,4 @@
-package indi.gromov
+package indi.gromov.config
 
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application

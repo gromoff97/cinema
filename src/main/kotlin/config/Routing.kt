@@ -1,4 +1,4 @@
-package indi.gromov
+package indi.gromov.config
 
 import indi.gromov.db.BookingRepository
 import indi.gromov.db.CustomerRepository
@@ -22,7 +22,6 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
-import io.ktor.server.http.content.static
 import io.ktor.server.http.content.staticResources
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.response.respondText

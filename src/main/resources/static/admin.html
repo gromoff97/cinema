@@ -84,11 +84,11 @@
     <div class="form-container">
         <h2>Добавить клиента</h2>
         <form id="customerForm">
-            <label for="fullName">Полное имя:</label>
-            <input type="text" id="fullName" name="fullName" required>
+            <label for="customerFullName">Полное имя:</label>
+            <input type="text" id="customerFullName" name="fullName" required>
 
-            <label for="balance">Баланс:</label>
-            <input type="number" id="balance" name="balance" required>
+            <label for="customerBalance">Баланс:</label>
+            <input type="number" id="customerBalance" name="balance" step="0.01" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -102,11 +102,11 @@
             <label for="bookingTime">Время бронирования:</label>
             <input type="datetime-local" id="bookingTime" name="bookingTime" required>
 
-            <label for="sessionSeatId">ID места в сеансе:</label>
-            <input type="text" id="sessionSeatId" name="sessionSeatId" required>
+            <label for="bookingSessionSeatId">ID места в сеансе:</label>
+            <input type="text" id="bookingSessionSeatId" name="sessionSeatId" required>
 
-            <label for="customerId">ID клиента:</label>
-            <input type="text" id="customerId" name="customerId" required>
+            <label for="bookingCustomerId">ID клиента:</label>
+            <input type="text" id="bookingCustomerId" name="customerId" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -120,11 +120,11 @@
             <label for="filmName">Название фильма:</label>
             <input type="text" id="filmName" name="name" required>
 
-            <label for="genreId">ID жанра:</label>
-            <input type="text" id="genreId" name="genreId" required>
+            <label for="filmGenreId">ID жанра:</label>
+            <input type="text" id="filmGenreId" name="genreId" required>
 
-            <label for="duration">Длительность (в минутах):</label>
-            <input type="number" id="duration" name="duration" required>
+            <label for="filmDuration">Длительность (в формате HH:mm:ss):</label>
+            <input type="text" id="filmDuration" name="duration" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -135,6 +135,9 @@
     <div class="form-container">
         <h2>Добавить жанр</h2>
         <form id="genreForm">
+            <label for="genreId">ID жанра:</label>
+            <input type="text" id="genreId" name="genreId" required>
+
             <label for="genreName">Название жанра:</label>
             <input type="text" id="genreName" name="name" required>
 
@@ -147,8 +150,11 @@
     <div class="form-container">
         <h2>Добавить зал</h2>
         <form id="hallForm">
-            <label for="alternativeName">Альтернативное название:</label>
-            <input type="text" id="alternativeName" name="alternativeName" required>
+            <label for="hallId">ID зала:</label>
+            <input type="number" id="hallId" name="hallId" required>
+
+            <label for="hallAlternativeName">Альтернативное название:</label>
+            <input type="text" id="hallAlternativeName" name="alternativeName" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -159,11 +165,14 @@
     <div class="form-container">
         <h2>Добавить место</h2>
         <form id="seatForm">
-            <label for="hallId">ID зала:</label>
-            <input type="text" id="hallId" name="hallId" required>
+            <label for="seatId">ID места:</label>
+            <input type="text" id="seatId" name="seatId" required>
 
-            <label for="rowNumber">Номер ряда:</label>
-            <input type="number" id="rowNumber" name="rowNumber" required>
+            <label for="seatHallId">ID зала:</label>
+            <input type="number" id="seatHallId" name="hallId" required>
+
+            <label for="seatRowNumber">Номер ряда:</label>
+            <input type="number" id="seatRowNumber" name="rowNumber" required>
 
             <label for="seatNumber">Номер места:</label>
             <input type="number" id="seatNumber" name="seatNumber" required>
@@ -180,6 +189,9 @@
     <div class="form-container">
         <h2>Добавить тип места</h2>
         <form id="seatTypeForm">
+            <label for="seatTypeId">ID типа места:</label>
+            <input type="text" id="seatTypeId" name="seatTypeId" required>
+
             <label for="seatTypeName">Название типа места:</label>
             <input type="text" id="seatTypeName" name="name" required>
 
@@ -192,14 +204,17 @@
     <div class="form-container">
         <h2>Добавить сеанс</h2>
         <form id="sessionForm">
-            <label for="hallIdSession">ID зала:</label>
-            <input type="text" id="hallIdSession" name="hallId" required>
+            <label for="sessionId">ID сеанса:</label>
+            <input type="text" id="sessionId" name="sessionId" required>
 
-            <label for="filmIdSession">ID фильма:</label>
-            <input type="text" id="filmIdSession" name="filmId" required>
+            <label for="sessionHallId">ID зала:</label>
+            <input type="number" id="sessionHallId" name="hallId" required>
 
-            <label for="startTime">Время начала:</label>
-            <input type="datetime-local" id="startTime" name="startTime" required>
+            <label for="sessionFilmId">ID фильма:</label>
+            <input type="text" id="sessionFilmId" name="filmId" required>
+
+            <label for="sessionStartTime">Время начала:</label>
+            <input type="datetime-local" id="sessionStartTime" name="startTime" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -210,14 +225,17 @@
     <div class="form-container">
         <h2>Добавить место в сеансе</h2>
         <form id="sessionSeatForm">
-            <label for="sessionId">ID сеанса:</label>
-            <input type="text" id="sessionId" name="sessionId" required>
+            <label for="sessionSeatId">ID места в сеансе:</label>
+            <input type="text" id="sessionSeatId" name="seatSessionId" required>
 
-            <label for="seatId">ID места:</label>
-            <input type="text" id="seatId" name="seatId" required>
+            <label for="sessionSeatSessionId">ID сеанса:</label>
+            <input type="text" id="sessionSeatSessionId" name="sessionId" required>
 
-            <label for="price">Цена:</label>
-            <input type="number" id="price" name="price" step="0.01" required>
+            <label for="sessionSeatSeatId">ID места:</label>
+            <input type="text" id="sessionSeatSeatId" name="seatId" required>
+
+            <label for="sessionSeatPrice">Цена:</label>
+            <input type="number" id="sessionSeatPrice" name="price" step="0.01" required>
 
             <button type="submit">Добавить</button>
         </form>
@@ -253,39 +271,61 @@
         }
     }
 
+    // Функция для проверки пустых полей
+    function validateForm(form) {
+        let isValid = true;
+        const inputs = form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+                alert(`Поле "${input.name}" не может быть пустым!`);
+            }
+        });
+        return isValid;
+    }
+
     // Обработчики для форм
     document.getElementById("customerForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
-            fullName: document.getElementById("fullName").value,
-            balance: parseFloat(document.getElementById("balance").value)
+            fullName: document.getElementById("customerFullName").value,
+            balance: parseFloat(document.getElementById("customerBalance").value)
         };
         await sendFormData("/customers", formData, "customerError");
     });
 
     document.getElementById("bookingForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
             bookingTime: document.getElementById("bookingTime").value,
-            sessionSeatId: document.getElementById("sessionSeatId").value,
-            customerId: document.getElementById("customerId").value
+            sessionSeatId: document.getElementById("bookingSessionSeatId").value,
+            customerId: document.getElementById("bookingCustomerId").value
         };
         await sendFormData("/bookings", formData, "bookingError");
     });
 
     document.getElementById("filmForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
             name: document.getElementById("filmName").value,
-            genreId: document.getElementById("genreId").value,
-            duration: parseInt(document.getElementById("duration").value)
+            genreId: document.getElementById("filmGenreId").value,
+            duration: document.getElementById("filmDuration").value
         };
         await sendFormData("/films", formData, "filmError");
     });
 
     document.getElementById("genreForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
+            genreId: document.getElementById("genreId").value,
             name: document.getElementById("genreName").value
         };
         await sendFormData("/genres", formData, "genreError");
@@ -293,17 +333,23 @@
 
     document.getElementById("hallForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
-            alternativeName: document.getElementById("alternativeName").value
+            hallId: parseInt(document.getElementById("hallId").value),
+            alternativeName: document.getElementById("hallAlternativeName").value
         };
         await sendFormData("/halls", formData, "hallError");
     });
 
     document.getElementById("seatForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
-            hallId: document.getElementById("hallId").value,
-            rowNumber: parseInt(document.getElementById("rowNumber").value),
+            seatId: document.getElementById("seatId").value,
+            hallId: parseInt(document.getElementById("seatHallId").value),
+            rowNumber: parseInt(document.getElementById("seatRowNumber").value),
             seatNumber: parseInt(document.getElementById("seatNumber").value),
             seatTypeId: document.getElementById("seatTypeId").value
         };
@@ -312,7 +358,10 @@
 
     document.getElementById("seatTypeForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
+            seatTypeId: document.getElementById("seatTypeId").value,
             name: document.getElementById("seatTypeName").value
         };
         await sendFormData("/seat-types", formData, "seatTypeError");
@@ -320,20 +369,26 @@
 
     document.getElementById("sessionForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
-            hallId: document.getElementById("hallIdSession").value,
-            filmId: document.getElementById("filmIdSession").value,
-            startTime: document.getElementById("startTime").value
+            sessionId: document.getElementById("sessionId").value,
+            hallId: parseInt(document.getElementById("sessionHallId").value),
+            filmId: document.getElementById("sessionFilmId").value,
+            startTime: document.getElementById("sessionStartTime").value
         };
         await sendFormData("/sessions", formData, "sessionError");
     });
 
     document.getElementById("sessionSeatForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (!validateForm(event.target)) return;
+
         const formData = {
-            sessionId: document.getElementById("sessionId").value,
-            seatId: document.getElementById("seatId").value,
-            price: parseFloat(document.getElementById("price").value)
+            seatSessionId: document.getElementById("sessionSeatId").value,
+            sessionId: document.getElementById("sessionSeatSessionId").value,
+            seatId: document.getElementById("sessionSeatSeatId").value,
+            price: parseFloat(document.getElementById("sessionSeatPrice").value)
         };
         await sendFormData("/session-seats", formData, "sessionSeatError");
     });

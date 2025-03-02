@@ -2,6 +2,7 @@ package indi.gromov.ktor.routes
 
 import indi.gromov.db.CustomerRepository
 import indi.gromov.models.Customer
+import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -12,13 +13,24 @@ import io.ktor.server.routing.route
 fun Route.customerRoutes(customerRepository: CustomerRepository) {
     route("/customers") {
         get {
-            val customers = customerRepository.allCustomers()
-            call.respond(customers)
+            runCatching {
+                customerRepository.allCustomers()
+            }.onSuccess {
+                call.respond(it)
+            }.onFailure {
+                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+            }
         }
+
         post {
-            val customer = call.receive<Customer>()
-            customerRepository.insertCustomer(customer)
-            call.respond("Customer created")
+            runCatching {
+                val customer = call.receive<Customer>()
+                customerRepository.insertCustomer(customer)
+            }.onSuccess {
+                call.respond(mapOf("status" to "success", "message" to "Customer created"))
+            }.onFailure {
+                call.respond(InternalServerError, mapOf("status" to "error", "message" to it.message))
+            }
         }
     }
 }
