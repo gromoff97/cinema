@@ -22,7 +22,7 @@ class HallDao(id: EntityID<Int>): IntEntity(id) {
 }
 
 // Репозиторий
-class HallRepository {
+object HallRepository {
     suspend fun allHalls(): List<Hall> = suspendTransaction {
         HallDao.all().map { it.toModel() }
     }

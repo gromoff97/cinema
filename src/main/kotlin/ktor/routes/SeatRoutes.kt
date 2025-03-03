@@ -12,11 +12,11 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-fun Route.seatRoutes(seatRepository: SeatRepository) {
+fun Route.seatRoutes() {
     route("/seats") {
         get {
             runCatching {
-                seatRepository.allSeats()
+                SeatRepository.allSeats()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -27,7 +27,7 @@ fun Route.seatRoutes(seatRepository: SeatRepository) {
         post {
             runCatching {
                 val seat = call.receive<SeatCreateRequest>()
-                seatRepository.insertSeat(seat)
+                SeatRepository.insertSeat(seat)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

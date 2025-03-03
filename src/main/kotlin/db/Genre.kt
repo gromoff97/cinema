@@ -20,7 +20,7 @@ class GenreDao(id: EntityID<UUID>): UUIDEntity(id) {
     var name by GenreTable.name
 }
 
-class GenreRepository {
+object GenreRepository {
     suspend fun allGenres(): List<Genre> = suspendTransaction {
         GenreDao.all().map { it.toModel() }
     }

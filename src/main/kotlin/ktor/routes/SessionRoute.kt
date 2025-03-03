@@ -12,11 +12,11 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.response.respond
 
-fun Route.sessionRoutes(sessionRepository: SessionRepository) {
+fun Route.sessionRoutes() {
     route("/sessions") {
         get {
             runCatching {
-                sessionRepository.allSessions()
+                SessionRepository.allSessions()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -27,7 +27,7 @@ fun Route.sessionRoutes(sessionRepository: SessionRepository) {
         post {
             runCatching {
                 val session = call.receive<SessionCreateRequest>()
-                sessionRepository.insertSession(session)
+                SessionRepository.insertSession(session)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

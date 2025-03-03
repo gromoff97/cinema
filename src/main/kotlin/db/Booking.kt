@@ -25,7 +25,7 @@ class BookingDao(id: EntityID<UUID>): UUIDEntity(id) {
     var customerId by BookingTable.customerId
 }
 
-class BookingRepository {
+object BookingRepository {
     suspend fun allBookings(): List<Booking> = suspendTransaction {
         BookingDao.all().map { it.toModel() }
     }

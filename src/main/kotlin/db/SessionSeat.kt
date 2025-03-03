@@ -24,7 +24,7 @@ class SessionSeatDao(id: EntityID<UUID>): UUIDEntity(id) {
     var price by SessionSeatTable.price
 }
 
-class SessionSeatRepository {
+object SessionSeatRepository {
     suspend fun allSessionSeats(): List<SessionSeat> = suspendTransaction {
         SessionSeatDao.all().map { it.toModel() }
     }

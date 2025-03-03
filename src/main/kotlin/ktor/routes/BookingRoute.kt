@@ -2,7 +2,6 @@ package indi.gromov.ktor.routes
 
 import indi.gromov.db.BookingRepository
 import indi.gromov.ktor.requests.BookingCreateRequest
-import indi.gromov.models.Booking
 import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
@@ -11,13 +10,12 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
-import kotlin.math.log
 
-fun Route.bookingRoutes(bookingRepository: BookingRepository) {
+fun Route.bookingRoutes() {
     route("/bookings") {
         get {
             runCatching {
-                bookingRepository.allBookings()
+                BookingRepository.allBookings()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -27,10 +25,8 @@ fun Route.bookingRoutes(bookingRepository: BookingRepository) {
 
         post {
             runCatching {
-                println("recieving")
                 val booking = call.receive<BookingCreateRequest>()
-                println("inserting")
-                bookingRepository.insertBooking(booking)
+                BookingRepository.insertBooking(booking)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

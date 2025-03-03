@@ -23,7 +23,7 @@ class SeatTypeDao(id: EntityID<UUID>): UUIDEntity(id) {
 }
 
 // Репозиторий
-class SeatTypeRepository {
+object SeatTypeRepository {
     suspend fun allSeatTypes(): List<SeatType> = suspendTransaction {
         SeatTypeDao.all().map { it.toModel() }
     }

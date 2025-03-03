@@ -30,7 +30,7 @@ class SessionDao(id: EntityID<UUID>): UUIDEntity(id) {
 }
 
 // Репозиторий
-class SessionRepository {
+object SessionRepository {
     suspend fun allSessions(): List<Session> = suspendTransaction {
         SessionDao.all().map { it.toModel() }
     }

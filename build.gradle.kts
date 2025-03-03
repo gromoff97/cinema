@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
+    implementation(libs.ktor.server.request.validation)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.kotlin.datetime)
     testImplementation(libs.ktor.server.test.host)

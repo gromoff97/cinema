@@ -2,21 +2,20 @@ package indi.gromov.ktor.routes
 
 import indi.gromov.db.HallRepository
 import indi.gromov.ktor.requests.HallCreateRequest
-import indi.gromov.models.Hall
 import indi.gromov.utils.transaction.extensions.toModel
 import io.ktor.http.HttpStatusCode.Companion.InternalServerError
 import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
-import io.ktor.server.response.respond
 
-fun Route.hallRoutes(hallRepository: HallRepository) {
+fun Route.hallRoutes() {
     route("/halls") {
         get {
             runCatching {
-                hallRepository.allHalls()
+                HallRepository.allHalls()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -27,7 +26,7 @@ fun Route.hallRoutes(hallRepository: HallRepository) {
         post {
             runCatching {
                 val hall = call.receive<HallCreateRequest>()
-                hallRepository.insertHall(hall)
+                HallRepository.insertHall(hall)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

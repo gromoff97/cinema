@@ -1,5 +1,6 @@
 package indi.gromov
 
+import indi.gromov.config.configureRequestValidation
 import indi.gromov.config.configureRouting
 import indi.gromov.config.configureSerialization
 import indi.gromov.config.connectDatabase
@@ -13,4 +14,5 @@ fun Application.module() {
     connectDatabase()
     configureSerialization()
     configureRouting()
+    configureRequestValidation()
 }

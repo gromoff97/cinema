@@ -22,7 +22,7 @@ class CustomerDao(id: EntityID<UUID>): UUIDEntity(id) {
     var balance by CustomerTable.balance
 }
 
-class CustomerRepository {
+object CustomerRepository {
     suspend fun allCustomers(): List<Customer> = suspendTransaction {
         CustomerDao.all().map { it.toModel() }
     }

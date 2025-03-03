@@ -11,11 +11,11 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-fun Route.filmRoutes(filmRepository: FilmRepository) {
+fun Route.filmRoutes() {
     route("/films") {
         get {
             runCatching {
-                filmRepository.allFilms()
+                FilmRepository.allFilms()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -26,7 +26,7 @@ fun Route.filmRoutes(filmRepository: FilmRepository) {
         post {
             runCatching {
                 val film = call.receive<FilmCreateRequest>()
-                filmRepository.insertFilm(film)
+                FilmRepository.insertFilm(film)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

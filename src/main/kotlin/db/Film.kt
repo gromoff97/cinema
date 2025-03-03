@@ -32,7 +32,7 @@ class FilmDao(id: EntityID<UUID>): UUIDEntity(id) {
     var duration by FilmTable.duration
 }
 
-class FilmRepository {
+object FilmRepository {
     suspend fun allFilms(): List<Film> = suspendTransaction {
         FilmDao.all().map { it.toModel() }
     }

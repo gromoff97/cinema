@@ -3,7 +3,6 @@
 <head>
     <title>Database Tables</title>
     <style>
-        /* Общие стили для страницы */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -21,11 +20,10 @@
             text-align: center;
         }
 
-        /* Стили для таблиц */
         table {
-            width: auto; /* Таблица занимает только необходимую ширину */
+            width: auto;
             border-collapse: collapse;
-            margin: 20px auto; /* Центрирование таблицы */
+            margin: 20px auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -47,7 +45,6 @@
         }
     </style>
     <script type="application/javascript">
-        // Функция для загрузки данных из API
         async function fetchData(url) {
             const response = await fetch(url, {
                 headers: {'Accept': 'application/json'}
@@ -58,7 +55,6 @@
             return [];
         }
 
-        // Функция для очистки таблицы
         function clearTable(tableBodyId) {
             document.getElementById(tableBodyId).innerHTML = "";
         }
@@ -74,7 +70,6 @@
             return row;
         }
 
-        // Функция для отображения данных в таблице
         function displayData(tableBodyId, data, columns) {
             const tableBody = document.getElementById(tableBodyId);
             data.forEach(item => {
@@ -83,14 +78,12 @@
             });
         }
 
-        // Функция для загрузки и отображения данных
         async function loadData(url, tableBodyId, columns) {
             clearTable(tableBodyId);
             const data = await fetchData(url);
             displayData(tableBodyId, data, columns);
         }
 
-        // Загрузка данных при загрузке страницы
         window.onload = function() {
             loadData("/customers", "customersTableBody", ["fullName", "balance"]);
             loadData("/bookings", "bookingsTableBody", ["bookingId", "bookingTime", "sessionSeatId", "customerId"]);

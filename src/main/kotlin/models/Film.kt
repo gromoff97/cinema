@@ -37,6 +37,10 @@ object DurationAsStringSerializer : KSerializer<Duration> {
 
     override fun deserialize(decoder: Decoder): Duration {
         val durationString = decoder.decodeString()
+        if (!durationString.matches("\\d{2}:\\d{2}:\\d{2}".toRegex())) {
+            throw IllegalArgumentException("Invalid duration format: $durationString")
+        }
+
         val parts = durationString.split(":")
         if (parts.size != 3) {
             throw IllegalArgumentException("Invalid duration format: $durationString")

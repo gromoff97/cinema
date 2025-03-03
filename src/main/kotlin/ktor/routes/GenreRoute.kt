@@ -11,11 +11,11 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-fun Route.genreRoutes(genreRepository: GenreRepository) {
+fun Route.genreRoutes() {
     route("/genres") {
         get {
             runCatching {
-                genreRepository.allGenres()
+                GenreRepository.allGenres()
             }.onSuccess {
                 call.respond(it)
             }.onFailure {
@@ -26,7 +26,7 @@ fun Route.genreRoutes(genreRepository: GenreRepository) {
         post {
             runCatching {
                 val genre = call.receive<GenreCreateRequest>()
-                genreRepository.insertGenre(genre)
+                GenreRepository.insertGenre(genre)
             }.onSuccess {
                 call.respond(it.toModel())
             }.onFailure {

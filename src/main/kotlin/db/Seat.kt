@@ -33,7 +33,7 @@ class SeatDao(id: EntityID<UUID>): UUIDEntity(id) {
 }
 
 // Репозиторий
-class SeatRepository {
+object SeatRepository {
     suspend fun allSeats(): List<Seat> = suspendTransaction {
         SeatDao.all().map { it.toModel() }
     }
